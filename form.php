@@ -163,7 +163,7 @@
         <input type="file" name="image"></input><br>
         <!-- <input type="submit" value="Upload"></input> -->
     </div>
-    <input type="submit" name="submit" value="submit"><br><br>
+    <input type="submit" name="submit" value="submit"><br><br> 
    
     </form>
     </div>

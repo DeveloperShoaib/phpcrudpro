@@ -10,6 +10,7 @@
         <thead class="thead-dark">
             <tr>
                 <th>ID</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Surname</th>
                 <th>Date of birth</th>
@@ -35,7 +36,8 @@
             <tr>
                 <!-- <th></th> -->
                 <td><?php echo $row['id']; ?></td>
-                <td><?php echo $row['name']?></td>
+                <td><?php echo $row['picstore'];?></td>
+                <td><?php echo $row['name'];?></td>
                 <td><?php echo $row['surname']; ?></td>
                 <td><?php echo $row['dob']; ?></td>
                 <td><?php echo $row['email']; ?></td>
@@ -47,6 +49,7 @@
                 <td><?php echo $row['gender']; ?></td>
                 <td><a href="delete.php?id=<?php echo $row['id']; ?>"><input type="button" value="delete"></a></td>
                 <td><a href="update.php?id=<?php echo $row['id']; ?>"><input type="button" value="update"></a></td>
+                <td><a href="index.php?<?php ?>"><input type="button" value="add"></a></td>
                 
             </tr>
          </tbody>

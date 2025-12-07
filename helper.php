@@ -4,26 +4,30 @@
     require "conn.php";
 
 
-      if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){
+    //   if(isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){
         
-        $file_name=$_FILES['image']['name'];
-        $temp_name=$_FILES['image']['tmp_name'];
-        $file_size=$_FILES['image']['size'];
-        $file_type=$_FILES['image']['type'];
+    //     $file_name=$_FILES['image']['name'];
+    //     $temp_name=$_FILES['image']['tmp_name'];
+    //     $file_size=$_FILES['image']['size'];
+    //     $file_type=$_FILES['image']['type'];
 
-        if(move_uploaded_file($temp_name,"uploadimage/".$file_name)){
-            echo "File uploaded successfully";
-        }
-        else{
-            echo "File not uploaded";
-        }
+    //     $folder="uploadimage/".$file_name;
+    //     echo $folder;
+        // if(move_uploaded_file($temp_name,$folder)){
+        //     echo "File uploaded successfully";
+        // }
+        // else{
+        //     echo "File not uploaded";
+        // }
+
+        // echo "<img src='$folder' height='100' width='100'/>";
 
         //$file_ext= strtolower(end(explode('.', $file_name)));
 
-    }
+    //}
 
      // $nameErr=$surnameErr= $dobErr= $emailErr= $phoneErr= $genderErr=$commentErr= $addressErr= $passwordErr=$websiteErr="";
-      $name=$surname= $dob= $email= $password= $website= $comment= $address= $phone= $gender= "";
+      //$name=$surname= $dob= $email= $password= $website= $comment= $address= $phone= $gender= "";
 
 //    function cleaning($record){
 //          $record=trim($record); 
@@ -116,7 +120,7 @@
 //         }
         
 
-    if($_SERVER["REQUEST_METHOD"]=="POST"){
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){
     if(count($_POST)!=0) {
         
         $name = $_POST['name'];
@@ -129,15 +133,29 @@
         $comment = $_POST['comment'];
         $phone = $_POST['phone'];
         $gender = $_POST['gender'];
+         
+        $file_name=$_FILES['image']['name'];
+        $temp_name=$_FILES['image']['tmp_name'];
+        
+
+        $folder="uploadimage/".$file_name;
+        echo $folder;
+        if(move_uploaded_file($temp_name,$folder)){
+            echo "File uploaded successfully";
+        }
+        else{
+            echo "File not uploaded";
+        }
+        
 
         //echo $name, $surname, $dob, $email, $password, $address, $website, $comment, $phone, $gender;
 
 
         $query= "insert into userdatabase(
-            name, surname,dob ,email, password,
+            name,picstore, surname,dob ,email, password,
             website, comment,address,phone, gender
         )values(
-            '$name','$surname', '$dob', '$email', '$password',
+            '$name','$folder','$surname', '$dob', '$email', '$password',
             '$website', '$comment','$address', '$phone', '$gender'
         )";
 

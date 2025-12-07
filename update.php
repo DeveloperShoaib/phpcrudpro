@@ -19,14 +19,55 @@
 <body>
     <?php
      include 'conn.php';
-     if(count($_POST)!=0) {
+      //if(count($_POST)!=0) {
         
-        //$name = $_POST['name'];
-        //$password = $_POST['password'];
-        extract($_POST);
-        extract($_GET);
+         //$name = $_POST['name'];
+         //$password = $_POST['password'];
+         //extract($_POST);
+         //extract($_GET);
+   // }
+    //     $query= "update userdatabase set name='$name', surname='$surname', dob='$dob' ,email='$email', password='$password',website='$website' , comment='$comment' ,address='$address',phone='$phone' , gender='$gender' where id='$id'";
+    //     echo $query;
+    //     $result=mysqli_query($con,$query);
+    //     if($result==true){
+    //         echo "Data inserted successfully";
+    //     } else {
+    //         echo "failed";
+    //     }
+    // }
 
-        $query= "update userdatabase set name='$name', surname='$surname', dob='$dob' ,email='$email', password='$password',website='$website' , comment='$comment' ,address='$address',phone='$phone' , gender='$gender' where id='$id'";
+
+
+    $id=$_GET['id'];
+
+    if($_SERVER["REQUEST_METHOD"]=="POST" && isset($_FILES['image']['name']) && $_FILES['image']['name'] != ""){
+    if(count($_POST)!=0) {
+        
+        $name = $_POST['name'];
+        $surname = $_POST['surname'];
+        $dob = $_POST['dob'];
+        $email = $_POST['email'];
+        $password = $_POST['password']; 
+        $address = $_POST['address'];
+        $website = $_POST['website'];
+        $comment = $_POST['comment'];
+        $phone = $_POST['phone'];
+        $gender = $_POST['gender'];
+         
+        $file_name=$_FILES['image']['name'];
+        $temp_name=$_FILES['image']['tmp_name'];
+        
+
+        $folder="uploadimage/".$file_name;
+        echo $folder;
+        if(move_uploaded_file($temp_name,$folder)){
+            echo "File uploaded successfully";
+        }
+        else{
+            echo "File not uploaded";
+        }
+
+        $query= "update userdatabase set name='$name', picstore='$folder', surname='$surname', dob='$dob' ,email='$email', password='$password',website='$website' , comment='$comment' ,address='$address',phone='$phone' , gender='$gender' where id='$id'";
         echo $query;
         $result=mysqli_query($con,$query);
         if($result==true){
@@ -34,11 +75,18 @@
         } else {
             echo "failed";
         }
+        
     }
+}
+
+
+
+
+
 
     ?>
     <div class="container">
-    <form  method="post">
+    <form  method="post" enctype="multipart/form-data">
 
     Name:<input type="text" name="name" placeholder="enter your name">
     <br><br>
@@ -56,7 +104,7 @@
     <br><br>
     Comment: <textarea name="comment" rows="5" cols="40"></textarea>
     <br><br>
-    Phone:<input type="number" name="phone" maxlength="10" placeholder="enter your phone number">
+    Phone:<input type="text" name="phone" maxlength="10" placeholder="enter your phone number">
     <br><br>
     Male:<input type="radio" name="gender" value="male"> Male
     <br><br>
@@ -69,5 +117,6 @@
     <input type="file" name="image"></input><br>
     <input type="submit" value="Upload"></input>
     </div>
+  </form>
 </body>
 </html>
